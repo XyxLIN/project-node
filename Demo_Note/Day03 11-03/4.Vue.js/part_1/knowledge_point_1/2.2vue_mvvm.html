@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- View -->
+        <h1>Number: {{num}}</h1>
+        <p> <button @click = "changeNumber('add')">+</button> </p>
+    </div>
+    <script src="./base/vue.js"></script>
+    <script>
+        // Model
+        let model = {
+            data: { num: 0 },
+            methods: {
+                changeNumber (type) {
+                    this.num += type === 'add' ? 1 : -1
+                }
+            }
+        }
+
+        // ViewModel 能通过指令来自动得知view层的用户操作，而且利用双向双击绑定，当viewmodel得知数据更改后，view也会自动进行更新
+        new Vue({
+            el: '#app',
+            data: model.data,
+            methods: model.methods
+        })
+
+
+
+        // 开发过程中采取数据驱动的模式可以让逻辑结构更清晰，也就是将逻辑分为 （数据）/（控制数据渲染以及更改数据）
+
+        // MVC思想融入了数据驱动模式，并且将应用分为三层：Model/View/Controller ：
+
+        // View负责渲染数据，能接收到用户操作后发送指令给controller，controller接收到指令后通知model进行数据的更新，数据更新后通知view进行数据的重新渲染
+        // 如此之下，model，view，controller分别承担了很大的一部分逻辑，能够封装优化出去的只有controller
+
+        // 在前端开发中还有MVP思想： 应用分为三层：Model/View/Presenter ：
+
+        // View负责渲染数据，接收到用户操作后发送指令给Presenter，Presenter收到指令后通知model进行数据的更新，更新后，Presenter再去通知View重新渲染数据
+        // 如此之下，Presenter承担了大部分的逻辑，view和model变得薄一些，优化出去的代码就多了一些
+
+        // 在前端开发中还有MVVM思想：应用分为三层：Model/View/ViewModel ：
+
+        // View负责渲染数据，当View产生用户操作后，ViewModel自动得知，ViewModel通知model进行数据的更新，当Model数据更新Viewmodel得知后，View就会进行自动的重新渲染
+
+
+
+        
+
+
+    </script>
+</body>
+</html>

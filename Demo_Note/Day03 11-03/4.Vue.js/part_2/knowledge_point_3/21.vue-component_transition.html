@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .box{
+        width: 200px;
+        height: 200px;
+        background: red;
+    }
+    /* fade-enter.fade-enter-to,fade-enter-active  */
+    /* fade-leave.fade-leave-to,fade-leave-active  */
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 2s;
+    }
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
+    }
+    .fade-enter-to, .fade-leave {
+        opacity: 1;
+    }
+   
+</style>
+<body>
+
+    <div id="app">
+        <app-transition></app-transition>
+    </div>
+
+
+    <template id="app-transition">
+        <div>   
+            <button @click = "isShow = !isShow">toggle</button>
+
+            <!-- <transition name = "fade">
+                <div v-if = "isShow" class="box"></div>
+            </transition> -->
+            <transition-group name = "fade">
+                <div v-if = "isShow" v-for = "x in 5" :key = "x" class="box"></div>
+            </transition-group>
+        </div>
+    </template>
+
+
+
+
+
+</body>
+<script src="./base/vue.js"></script>
+
+<script>
+    // vue提供了一个transition组件帮我们去实现过渡
+    // 1. 在需要实现过渡的元素、组件外部包上 transition
+    // 2. 在transition组件上定义name属性为过渡名称
+    // 3. 编写6个类名的样式
+
+
+    Vue.component("app-transition",{
+        template:"#app-transition",
+        data () {
+            return { isShow: false }
+        }
+    })
+
+    new Vue({
+        el:"#app"
+    })
+
+
+    
+
+
+
+</script>
+</html>

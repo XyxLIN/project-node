@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app-hello></app-hello>
+    </div>
+
+
+    <template id="app-hello">
+        <div>
+            <h1>Hello Vue.js</h1>
+            <p>哈哈哈哈哈</p>
+        </div>
+    </template>
+   
+</body>
+<script src="./base/vue.js"></script>
+
+<script>
+    // 可以在body里创建template模板标签在组件里指定template，用id作为标记
+    //模板内容外层必须有根元素
+    Vue.component('app-hello', {
+        template: '#app-hello'
+    })
+
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            msg:'hahahahah'
+        }
+    })
+
+
+
+</script>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+       <app-hello></app-hello>
+       <hr>
+       <app-hello></app-hello>
+    </div>
+    
+    <template  id="app-hello">
+        <div @click = "laugh">
+            <h1>Hello {{message}}</h1>
+            <p>This is Vue's example</p>
+            <input type="text" v-model="message">
+        </div>
+    </template>
+
+</body>
+<script src="./base/vue.js"></script>
+
+<script>
+    // template必须有根节点
+    // 要保证每一个组件实例的数据都是独立的, 所以data要写成函数返回新数据的形式
+    Vue.component('app-hello', {
+        template: '#app-hello',
+        data: function () {// 当实例化实例的会执行，为每个实例都创建独立的数据
+            return {
+                message: 'Vue.js'
+            }
+        },
+        methods: {
+            laugh () {
+                console.log('哈哈哈哈哈哈啊哈哈哈')
+            }
+        }
+    })
+  
+    var vm = new Vue({
+        el:"#app",
+        data: {
+            message: 'Vue.js'
+        }
+    })
+</script>
+</html>

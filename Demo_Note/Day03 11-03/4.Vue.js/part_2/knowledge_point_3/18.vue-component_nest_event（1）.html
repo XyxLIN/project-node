@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app-mother></app-mother>
+    </div>
+
+    <template id="mother">
+        <div>
+            <p>我是妈妈，我会管钱--{{money}}</p>
+            <hr>
+            <app-father :give-money = 'getMoney'></app-father>
+            <hr>
+            <app-son></app-son>
+        </div>
+    </template>
+
+    <template id="father">
+        <div>
+            <p>我是爸爸，我会赚钱--{{money}}</p>
+            <button @click="getMoney">赚钱 </button>
+            <button @click='submit'>交钱</button>
+        </div>
+    </template>
+
+    <template id="son">
+        <div>
+            <p>我是儿子，我会花钱--{{money}}</p>
+        </div>
+    </template>
+ </body>  
+<script src="./base/vue.js"></script>
+
+<script>
+
+    Vue.component('app-mother',{
+        template:'#mother',
+        data(){
+            return{
+                money:0,
+                sonMoney:2
+            }
+        },
+        computed:{
+            current(){
+                return this.money-this.sonMoney;
+            }
+        },
+        methods:{
+            getMoney(money){
+                this.money+=money;
+            },
+        }
+    })
+
+    Vue.component('app-father',{
+        template:'#father',
+        data(){
+            return{ money:100}
+        },
+        props:['giveMoney'],
+        watch:{
+            money:{
+                immediate:true,
+                handler(val){
+                    if(val >= 100){
+                        this.submit()
+                    }
+                }
+            }
+        },
+        methods:{
+            submit(){
+                this.giveMoney(this.money)
+                this.money = 0
+            },
+            getMoney(){
+                this.money+=10
+            }
+
+        }
+    })
+
+
+
+    let vm  = new Vue({
+        el:"#app",
+
+    })
+</script>
+</html>

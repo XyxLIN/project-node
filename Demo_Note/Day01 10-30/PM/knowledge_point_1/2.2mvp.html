@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    
+</style>
+<body>
+
+    <h1>Number: <span id="num"></span></h1>
+    <h1>Number: <span id="num1"></span></h1>
+    <h1>Number: <span id="num2"></span></h1>
+    <p> <button id="btn">+</button> </p>
+    <p> <button id="btn1">-</button> </p>
+    <p> <button id="btn2">+</button> </p>
+
+
+
+    <script src="./base/vue.js"></script>
+    <script>
+
+        // Model 挂载数据 接收到Controller的要求，进行状态的更改，
+        var Model = {
+            data: { // 挂载数据
+                num: 0
+            },
+            changeNumber (type) { // 更改状态
+                this.data.num += type === 'add' ? 1 : -1
+            }
+        }
+       
+        // View 负责数据的展示 接收到Model的通知去渲染视图  ， 接收用户操作后给Controller发送指令
+        var View = {
+            elements: { // 保存视图承载dom
+                num: [ document.querySelector('#num'), document.querySelector('#num1'), document.querySelector('#num2')  ]
+            }
+        }
+       
+
+
+
+        var Presenter = {
+            changeNumber (e) { // 接收到View的指令，要求model进行更新
+                switch (e.target.innerHTML) {
+                    case '+' : Model.changeNumber('add');break;
+                    case '-' : Model.changeNumber('reduce');break;
+                }
+                // 通知view
+                this.render('num', Model.data.num) // 通知视图
+                
+            },
+            render (key, value) { // 展示数据
+                View.elements[key].forEach(element => {
+                    element.innerHTML = value
+                });
+            },
+            noticeView () {// 通知视图
+                View.render(...arguments)
+            },
+            bindEvents () {
+                document.querySelector('#btn').onclick = this.changeNumber.bind(this)
+                document.querySelector('#btn1').onclick = this.changeNumber.bind(this)
+                document.querySelector('#btn2').onclick = this.changeNumber.bind(this)
+            },
+            init () {
+                this.bindEvents()
+            }
+        }
+
+        Presenter.init()
+
+        
+        
+
+
+    </script>
+</body>
+</html>

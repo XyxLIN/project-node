@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+   
+</style>
+<body>
+    <div id="app">
+        <input @keyup.enter = "get" type="text" v-model = "title">
+        <ul>
+            <li v-for = " book in books " :key = "book.id">{{book.title}}</li>
+        </ul>
+    </div>
+    <script src="./base/vue.js"></script>
+    <script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.min.js"></script>
+    <script>
+
+   
+    
+    var vm = new Vue({
+        el:"#app",
+        data:{
+           title: '',
+           books: []
+        },
+        methods:{
+            // https://api.douban.com/v2/book/search
+            get () {
+                this.$http.jsonp('https://api.douban.com/v2/book/search',{
+                    params: {
+                        q: this.title
+                    }
+                }).then (res => {
+                    this.books = res.body.books
+                })
+            }
+        },
+       
+        
+    })
+
+
+    // jsonp 一种前后台的数据交互方式，可以绕过同源策略，实现跨域请求
+    // 原理: 动态的生成script标签，src设置为api接口地址，请求回的数据来回调函数中接收
+    // 为什么要“动态”的生成？生成的为什么是script标签?
+
+    // 每个script请求一次，新的请求需要创建新的标签，请求后需要将当前的scriptr emove
+    // jsonp返回的函数调用的字符串，只有script标签可以解析js代码
+
+    // 缺点： 只能get           
+
+    // a({x: 1}) {x: 1}   a is not define    ';' + req.query.cb + '(' + JSON.stringify(data) + ')'
+
+
+
+
+
+    
+
+
+      
+ 
+    </script>
+</body>
+</html>

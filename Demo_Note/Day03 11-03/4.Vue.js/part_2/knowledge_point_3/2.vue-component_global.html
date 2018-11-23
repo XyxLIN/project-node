@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app-hello></app-hello>
+        <app-hello></app-hello>
+    </div>
+    <div id="app1">
+        <app-hello></app-hello>
+    </div>
+</body>
+<script src="./base/vue.js"></script>
+<script>
+    
+    // 组件想要使用（实例化出一个一个实例放在页面中），必须进行注册！
+    // 注册方式：全局注册（组件的实例放哪都能用），局部注册（只能在注册它的这个组件或实例中使用）
+
+
+    var Hello = Vue.extend({
+        template: '<h1>Hello <mark>World</mark></h1>'
+    })
+    // 组件的使用是要放在父组件或者父实例的模板中，像标签一样使用
+    // 注册时需要指定使用的时候标签的名字
+    Vue.component('app-hello', Hello)
+    
+    // 在根实例中写入的每一个app-hello其实都是Hello组件的实例
+    new Vue({
+        el:"#app"
+    })
+
+    new Vue({
+        el:"#app1"
+    })
+</script>
+</html>

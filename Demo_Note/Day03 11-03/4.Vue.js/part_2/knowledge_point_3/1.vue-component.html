@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+       
+        
+
+
+
+
+
+    </div>
+</body>
+<script src="./base/vue.js"></script>
+<script>
+    // 通过Vue.extend得到的Vue的子类，我们叫做组件
+    // 组件的实例和Vue的根实例，相差不大，功能相似
+    let Hello = Vue.extend({
+        // data,
+        // methods ... 
+    })// Vue的子类 组件!
+
+    let hello = new Hello()//组件的实例
+   
+    // 根实例
+    let vm = new Vue({
+        el: '#app'
+    })
+   
+    console.log(Vue)
+    console.log(vm)
+
+    console.log(Hello)
+    console.log(hello)
+
+
+  
+</script>
+</html>
+

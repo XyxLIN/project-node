@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+     <app-block >
+            <p>哈哈哈哈哈哈</p>
+         <h2 slot = "title">{{title}}</h2>
+        <img slot = "content-img" src="https://static.maizuo.com/pc/v1/static/asset/6b02e2bb1ad24bf3ddfe61117f7623d9.jpg" alt="">
+        
+     </app-block>
+
+     <app-block></app-block>
+
+     <hr>
+
+     <app-todolist>
+         <!-- <h1 slot-scope="abc">{{abc.x}}</h1> -->
+         <h1 slot-scope="{x}">{{x}}</h1>
+     </app-todolist>
+
+     <hr>
+
+     <async-component></async-component>
+
+    </div>
+
+    <template id="app-block">
+        <div>  
+            <header>
+               <slot name="title">Title</slot>
+            </header> 
+            <hr>
+
+            <div class="content" style="padding: 20px;">
+                
+                <slot>haha</slot>
+                <slot name = "content-img">hehe</slot>
+            </div>    
+        </div>
+    </template>
+
+    <template id="app-todolist">
+        <div>  
+            <ul>
+                <li v-for = "x in 10" :key = "x">
+                    <slot :x = "x"></slot>
+                </li>
+            </ul>
+        </div>
+    </template>
+
+
+
+
+
+</body>
+<script src="./base/vue.js"></script>
+
+<script>
+
+    // 在使用组件时，标签内部的内容（dom，component）上利用slot属性进行标记，在组件中使用slot插槽的时候可以为其设置name属性来接收对于的内容
+    
+    Vue.component('app-block', {
+        template: '#app-block',
+        props: {
+            title: {
+                default: 'Title',
+                type: String
+            }
+        }
+    })
+
+    Vue.component('app-todolist', {
+        template: '#app-todolist'
+    })
+
+
+    Vue.component('async-component', (resolve) => {
+        setTimeout(() => {
+            if (Math.random() > 0.5) {
+                resolve({
+                    template: '<h1>>0.5</h1>'
+                })
+            }  else {
+                resolve({
+                    template: '<h1><0.5</h1>'
+                })
+            }
+        }, 1000);
+    })
+
+
+    new Vue({
+        el:"#app",
+        data: {
+            title: 'Hello World'
+        }
+    })
+
+
+    
+    
+
+
+
+</script>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<style>
+
+</style>
+<body>
+    
+    <div id="content">
+        <!-- <span id="num">0</span> -->
+
+        <button id="btn">add</button>
+        <p> {{ 1+2 }} </p>
+        <ul class="item-group">
+            <li data-id = "1" class= "active">item 1</li>
+            <li data-id = "2">item 2</li>
+            <li data-id = "3">item 3</li>
+        </ul>
+
+    </div>
+    
+    <script src="./base/vue.js"></script>
+
+    <script>
+        
+        // 1. 在js中建立完整的虚拟dom结构，它是真实dom的映射
+        
+        let items = [1, 2, 3, 4]
+
+        // => 将html中的模板编译成虚拟dom结果
+        
+        var virtual_dom = {
+            tag: 'div',
+            attr: {
+                id: 'content'
+            },
+            content: [
+                {
+                    tag: 'button',
+                    attr: {
+                        id: 'btn'
+                    },
+                    events: {
+                        click: function () {
+                            items.push(5)
+                        }
+                    },
+                    content: 'add'
+                },
+                {
+                    tag: 'p',
+                    content: '3'
+                },
+                {
+                    tag: 'ul',
+                    attr: {
+                        className: 'item-group'
+                    },
+                    content: items.map(item => ({
+                        tag: 'li',
+                        attr: {
+                            'data-id': item,
+                            className: item === 1 ? 'active': ''
+                        },
+                        content: 'item '+item
+                    }))
+                }
+            ]
+        }
+
+
+        // 2. 渲染虚拟dom到页面中
+        
+        // 3. 产生了用户操作后  更改数据
+        // items.push(5)  // this.setData({items: [1,2,3,4,5]})
+
+        // 4. 数据变化后，生成完整的新的虚拟dom结构
+        var virtual_dom_update = {
+            tag: 'div',
+            attr: {
+                id: 'content'
+            },
+            content: [
+                {
+                    tag: 'button',
+                    attr: {
+                        id: 'btn'
+                    },
+                    events: {
+                        click: function () {
+                            items.push(6)
+                        }
+                    },
+                    content: 'add'
+                },
+                {
+                    tag: 'p',
+                    content: '3'
+                },
+                {
+                    tag: 'ul',
+                    attr: {
+                        className: 'item-group'
+                    },
+                    content: items.map(item => ({
+                        tag: 'li',
+                        attr: {
+                            'data-id': item,
+                            className: item === 1 ? 'active': ''
+                        },
+                        content: 'item '+item
+                    }))
+                }
+            ]
+        }
+
+        //5. 对比此次数据变化所生成的新的虚拟dom结构和上一次的虚拟dom结构， 将不同的地方进行rerender
+
+        // 对比的时候使用diff算法进行比对
+
+
+        // 1. 每次只要数据变化就生成完整的虚拟dom树？
+
+        // 不会，根据上一次的虚拟dom结构，进行复用
+
+        // 2. 到底哪里减少dom操作了
+
+        // 会将最终对比出来的需要更新的地方，进行重新render
+
+
+
+
+
+
+
+        // console.time('test:dom')
+        // for (let i = 0; i < 10000; i++) {
+        //     let num = ~~document.querySelector('#num').innerHTML     
+        //     num++
+        //     document.querySelector('#num').innerHTML = num
+        // }
+        // console.timeEnd('test:dom')
+
+        // console.time('test:data')
+        // let num = ~~document.querySelector('#num').innerHTML 
+        // for (let i = 0; i < 10000; i++) {    
+        //     num++       
+        // }
+        // document.querySelector('#num').innerHTML = num
+        // console.timeEnd('test:data')
+
+        // 《虚拟dom与diff算法》
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="./swiper.min.css">
+</head>
+<body>
+    <div id="app">
+      <my-component></my-component>
+    </div>
+
+    <template id="component">
+        <div>
+            <h1 id="title">{{message}}</h1>
+            <h3>Number: {{num}}</h3>
+            <p><button @click = "destroy">destroy</button></p>
+            <input type="text" v-model = "message">
+        </div>
+    </template>
+
+
+<script src="./base/vue.js"></script>
+
+<script>
+    // 组件从创建初始到销毁的过程中，经常会需要在某些时刻去执行一些逻辑代码
+    // Vue在每个组件的生命周期过程（从创建到销毁）中暴露出很多的 钩子函数，这些钩子函数都会在特定的时刻执行
+
+    // 1. 组件或者实例会在这个生命周期过程中会经历哪些阶段？这些阶段中组件或者实例都做了些什么？
+
+    // 2. 生命周期钩子函数有哪些？分别在哪些时刻执行?有什么作用？
+
+    // 组件或者实例生命周期会经历三个阶段： 初始化/运行中/销毁
+
+    // 1. 当组件或者Vue被实例化的时候，代表组件或者Vue的生命周期开始
+
+    // 2. 初始化事件监听和生命周期
+
+
+    Vue.component('my-component', {
+        template: '#component',
+        data () { return { message: 'Hello World', num: 1 } },
+        methods: {
+            destroy () {
+                this.$destroy()
+            }
+        },
+        beforeCreate () {
+            // 3. 执行beforeCreate, 此时数据还未挂载, dom也没有渲染， 基本没有什么作用
+            console.log('beforeCreate', this.message, document.querySelector('#title'))
+        },
+        // 4. 挂载数据，绑定数据监听等...
+        created () {
+            // 5. 执行created, dom没有渲染，可以操作数据,并且不会触发运行中阶段的钩子函数，经常会在这里做数据的初始化挂载
+            console.log('created', this.message, document.querySelector('#title'))
+            this.message += '!'
+        },
+        // 6. 查找组件或者实例的模板，进行编译，编译成虚拟dom结构放入到render函数中
+        beforeMount () {
+            // 执行beforeMount 也可以访问数据，操作数据，dom还没有渲染，作用和created一样，做初始数据的获取与挂载
+            console.log('beforeMount', this.message, document.querySelector('#title'))
+            this.message += '!'
+        },
+        // 7. 创建$el，并且执行了render函数
+        // render () {
+        //     console.log('render')
+        // },
+        mounted () {
+            // 8. 执行mounted dom重新渲染完成，标志 初始化阶段完成
+            console.log('mounted', this.message, document.querySelector('#title'))
+            document.querySelector('#title').style.color = "red"
+            document.querySelector('#title').onclick = function () {
+                console.log('hahahahha')
+            }
+            // this.message += '!' // 会触发update函数执行
+
+            this.timer = setInterval(() => {
+                console.log('go')
+                this.num ++
+            }, 500)
+        },
+        
+        // 9. 进入运行中阶段，当数据更改的时候
+        beforeUpdate () {
+            // 10. 执行beforeUpdate, 数据已经更新了，dom还没有重新渲染， 没有什么用，不能操作数据（死循环），dom也没有操作的必要
+            console.log('beforeUpdate', this.message, document.querySelector('#title').innerHTML)
+            // this.message += '!'
+        },
+        // 11. setter => watcher -> 创建新的虚拟dom -> diff对比 -> rerender
+        updated () {
+            // 12.执行updated dom重新渲染完成, 作用，可以操作重新渲染之后的dom
+            console.log('updated', this.message, document.querySelector('#title').innerHTML)
+        },
+        // 13当组件被销毁的时候,销毁组件只有一个途径：调用组件的$destory方法，切换组件其实也在销毁组件
+        beforeDestroy () {
+            // 14. 执行beforeDestroy， 此时还没有销毁，搽屁股，善后.....取消一些事件监听，解绑某些dom的事件
+            console.log('beforeDestroy', this.message, document.querySelector('#title'))
+            clearInterval(this.timer)
+            document.querySelector('#title').onclick = null
+        },
+        // 15. 取消所有的监听！数据监听/事件监听。。。。
+        destroyed () {
+            // 16. 执行destroyed 作用和beforeDestroy一样
+            console.log('destroyed', this.message, document.querySelector('#title'))
+        }
+    })
+
+    
+    
+  
+
+    new Vue().$mount('#app')
+
+
+
+</script>
+</html>

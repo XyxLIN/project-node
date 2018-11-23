@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    
+</style>
+<body>
+
+    <h1>Number: <span id="num"></span></h1>
+    <h1>Number: <span id="num1"></span></h1>
+    <h1>Number: <span id="num2"></span></h1>
+    <p> <button id="btn">+</button> </p>
+    <p> <button id="btn1">-</button> </p>
+    <p> <button id="btn2">+</button> </p>
+
+
+
+    <script src="./base/vue.js"></script>
+    <script>
+        // 目前市场上比较流行的框架设计思想有MVC
+        // 数据驱动， 视图的任意变化都应该由数据控制
+
+        // MVC中引入了数据驱动，MVC认为应该将业务进行分层 M,V,C
+
+        // Model 挂载数据 接收到Controller的要求，进行状态的更改， 状态更改后通知view进行更新
+        var Model = {
+            data: { // 挂载数据
+                num: 0
+            },
+            changeNumber (type) { // 更改状态
+                this.data.num += type === 'add' ? 1 : -1
+                this.noticeView('num', this.data.num) // 通知视图
+            },
+            noticeView () {// 通知视图
+                View.render(...arguments)
+            },
+            init () {
+                this.noticeView('num', this.data.num)
+            }
+        }
+       
+        // View 负责数据的展示 接收到Model的通知去渲染视图  ， 接收用户操作后给Controller发送指令
+        var View = {
+            elements: { // 保存视图承载dom
+                num: [ document.querySelector('#num'), document.querySelector('#num1'), document.querySelector('#num2')  ]
+            },
+            render (key, value) { // 展示数据
+                this.elements[key].forEach(element => {
+                    element.innerHTML = value
+                });
+            },
+            bindEvents () {
+                document.querySelector('#btn').onclick = Controller.changeNumber
+                document.querySelector('#btn1').onclick = Controller.changeNumber
+                document.querySelector('#btn2').onclick = Controller.changeNumber
+            },
+            init () {
+                this.bindEvents()
+            }
+        }
+       
+
+        // Controller 接收到view的指令，然后
+        // var Controller = {
+        //     changeNumber () { // 接收到View的指令，要求model进行更新
+        //         switch (this.innerHTML) {
+        //             case '+' : Model.changeNumber('add');break;
+        //             case '-' : Model.changeNumber('reduce');break;
+        //         }
+                
+        //     },
+        //     init () {
+        //         Model.init()
+        //         View.init()
+        //     }
+        // }
+
+        var Presenter = {
+            changeNumber () { // 接收到View的指令，要求model进行更新
+                switch (this.innerHTML) {
+                    case '+' : Model.changeNumber('add');break;
+                    case '-' : Model.changeNumber('reduce');break;
+                }
+
+                // 通知view
+
+                this.noticeView('num', this.data.num) // 通知视图
+                
+            },
+            noticeView () {// 通知视图
+                View.render(...arguments)
+            },
+            init () {
+                Model.init()
+                View.init()
+            }
+        }
+
+        Controller.init()
+
+        
+        
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css">
+</head>
+<body>
+    <div id="app">
+        <big-brother ref = "big"></big-brother>
+        <hr>
+        <littel-brother ref = "little"></littel-brother>
+    </div>
+
+
+    <template id="big-brother">
+        <div>
+            <p>我是哥哥</p>
+            <button @click = "hit">打弟弟</button>
+        </div>
+    </template>
+
+
+    <template id="littel-brother">
+        <div>
+            <p>我是弟弟</p>
+            <p v-if = "isCry">呜呜呜呜呜呜呜</p>
+        </div>
+    </template>
+
+</body>
+<script src="./base/vue.js"></script>
+
+<script>
+    // 1.定义数据
+
+    Vue.component('big-brother', {
+        template: '#big-brother',
+        methods: {
+            hit () {
+                // this.$parent.$children[1].cry()
+                this.$parent.$refs.little.cry()
+            }
+        }
+    })
+    Vue.component('littel-brother', {
+        template: '#littel-brother',
+        data () {
+            return {
+                isCry: false
+            }
+        },
+        methods: {
+            cry () { this.isCry = true }
+        }
+        
+    })
+    new Vue({
+        el:"#app"
+    })
+
+
+</script>
+</html>

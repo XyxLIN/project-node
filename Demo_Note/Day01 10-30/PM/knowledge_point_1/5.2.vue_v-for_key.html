@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+      <ul>
+         
+         <li v-for = "(num, i) in nums" :key = "i"> {{ num }} </li>
+
+      </ul>
+    </div>
+    <!-- <script src="https://cdn.bootcss.com/vue/1.0.22/vue.js"></script> -->
+    <script src="./base/vue.js"></script>
+    <script>
+    //当数据中有重复数据的时候，可能会引起报错
+    //数据变化之后，vue要进行重新的循环渲染，这个时候为了能达到复用（有的数据没有改变），所以就会去对比，这次的数据和上次的数据哪里发生了变化，vue在对比的时候，需要我们去添加一个属性key
+    
+    //所以在循环的时候需要给dom添加动态的key ,保证key都不相同，这样的话能提高vue对比的效率，提高性能
+
+
+    var vm = new Vue({
+          el:'#app',
+          data: {
+             nums: [ 1, 2, 2, 3, 3, 5, 4, 7 ]
+          }
+      })
+
+    </script>
+</body>
+</html>

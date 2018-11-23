@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
+</head>
+<style>
+    .box{
+        width: 200px;
+        height: 200px;
+        background: red;
+    }
+
+   
+</style>
+<body>
+
+    <div id="app">
+        <app-transition></app-transition>
+    </div>
+
+
+    <template id="app-transition">
+        <div>   
+            <button @click = "isShow = !isShow">toggle</button>
+
+            <transition enter-active-class="slideInLeft" leave-active-class="slideOutUp">
+                <div v-if = "isShow" class="box animated"></div>
+            </transition>
+        </div>
+    </template>
+
+
+
+
+
+</body>
+<script src="./base/vue.js"></script>
+
+<script>
+
+
+
+    Vue.component("app-transition",{
+        template:"#app-transition",
+        data () {
+            return { isShow: false }
+        }
+    })
+
+    new Vue({
+        el:"#app"
+    })
+
+
+    
+
+
+
+</script>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css">
+</head>
+<body>
+    <div id="app">
+        <father></father>
+    </div>
+
+
+    <template id="father">
+        <div>
+            <p>父组件</p>
+            <input type="text" v-model ="mes">
+            <hr>
+            <son :message = "mes"></son>
+        </div>
+    </template>
+
+
+    <template id="son">
+        <div>
+            <p>子组件</p>
+            {{ message }}
+        </div>
+    </template>
+
+</body>
+<script src="./base/vue.js"></script>
+<script>
+    //父组件数据变化的时候，会触发数据的setter，触发watcher，创建新的虚拟dom，与上一次的diff对比，重新渲染
+    //此时就相当于重新给子组件传递数据
+
+    Vue.component("son",{
+        template:"#son",
+        props: ['message']
+    })
+
+    Vue.component("father",{
+        template:"#father",
+        data () {
+            return {
+                mes: 'Hello World'
+            }
+        }
+    })
+   
+    new Vue({
+        el:"#app"
+    })
+
+
+</script>
+</html>

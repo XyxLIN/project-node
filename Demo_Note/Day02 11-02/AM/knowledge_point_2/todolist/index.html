@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ToDoList—最简单的待办事项列表</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    
+    <div class="container todo-box">
+        <h1 class="text-center"> ToDoList—最简单的待办事项列表 </h1>
+
+        <input  v-model = "new_title" @keyup.enter = "saveTodoItem" type="text" class="form-control">
+        
+        <div class="todo-content">
+            <h3>未完成 <span class="label label-primary pull-right">{{ unfinishedTodos.length }}</span> </h3>
+            <ul class="list-group">
+                <li 
+                    v-for = "item in unfinishedTodos" :key = "item.id"
+                    class="list-group-item">
+                    <div class="row">
+                        <input v-model="item.isFinished"  class="col-xs-1" type="checkbox">
+                        <div class="title col-xs-8">
+                            <input @blur = "item.isChanging = false" v-if = "item.isChanging" type="text" v-model.lazy = "item.title">
+                            <span v-else @click="item.isChanging = !item.isChanging">{{item.title}}</span>
+                        </div>
+                        <button @click = "removeTodoItem(item.id)"  type="button" class="close col-xs-1" ><span >&times;</span></button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="todo-content">
+            <h3>已完成 <span class="label label-primary pull-right">{{ finishedTodos.length }}</span> </h3>
+            <ul class="list-group">
+                <li 
+                    v-for = "item in finishedTodos" :key = "item.id"
+                    class="list-group-item">
+                    <div class="row">
+                        <input v-model="item.isFinished"  class="col-xs-1" type="checkbox">
+                        <div class="title col-xs-8">
+                            <input @blur = "item.isChanging = false" v-if = "item.isChanging" type="text" v-model.lazy = "item.title">
+                            <span v-else @click="item.isChanging = !item.isChanging">{{item.title}}</span>
+                        </div>
+                        <button @click = "removeTodoItem(item.id)"  type="button" class="close col-xs-1" ><span >&times;</span></button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script src="../base/vue.js"></script>
+    <script>
+        // 数据驱动
+
+        // 1. 定义关键数据
+        // 2. 建立数据和视图的联系
+        // 3. 操作数据
+        let vm = new Vue({
+            el: '.todo-box',
+            data: {
+                todoid: JSON.parse(localStorage.todoid || '0'),
+                todos: JSON.parse(localStorage.todos || '[]'),
+                new_title: ''
+            },
+            computed: {
+                finishedTodos () { return this.todos.filter(item => item.isFinished) },
+                unfinishedTodos () { return this.todos.filter(item => !item.isFinished) }
+            },
+            watch: {
+                todos: {
+                    deep: true,
+                    handler () {
+                        // 应该将新的todos存放到localstorage
+                        localStorage.todoid = this.todoid
+                        localStorage.todos = JSON.stringify(this.todos)
+                    }
+                }
+            },
+            methods: {
+                saveTodoItem () { // 保存新的todo
+                    this.todos.push({
+                        id: ++this.todoid ,
+                        title: this.new_title,
+                        isFinished: false,
+                        isChanging: false
+                    })
+                   
+                    this.new_title = ''
+                },
+                removeTodoItem (id) {
+                    this.todos = this.todos.filter(item => item.id !== id)
+                }
+            }
+        })
+
+        // 目前有todos，保存的是全部u的item，需要两个新数据，一个存放已完成的item，一个存放未完成的item
+        // 全部的todos变化的时候，已完成和未完成的todos也要变化
+        
+
+        // 希望在进入页面初始化的时候，能执行这样的逻辑（从本地存储中取出数据给todoid，todos挂载）
+
+        // 生命周期
+    </script>
+</body>
+</html>

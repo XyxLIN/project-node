@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <movie-block></movie-block>
+    </div>
+
+    <template id="movie-block">
+        <div class="movie-block">
+            <header>
+                <h1>电影列表</h1>               
+            </header>       
+            <hr/>
+            <section class="content">
+                <movie-list></movie-list>
+            </section>
+        </div>
+    </template>
+    <template id="movie-list">
+        <div class="movie-list">
+            <button><</button>
+            <ul>
+                <movie-item v-for = "num in 5" :key = "num"></movie-item>
+            </ul>
+            <button>></button>
+        </div>
+    </template>
+    <template id="movie-item">
+        <li class="movie-item">
+            <img src="https://pic.maizuo.com/usr/movie/ea8119564bed95cd639e11d43d1d3c86.jpg?x-oss-process=image/resize,m_fixed,h_0,w_300" alt="">
+            <p>哈哈哈哈</p>
+        </li>
+    </template>
+    
+</body>
+<script src="./base/vue.js"></script>
+
+<script>
+    //在vue的项目中，一般都只有一个实例也就是根实例，其他的部分都由组件来实现
+    //也就是说实例中可能会包含大量的组件，而且组件直接会项目嵌套，形成父子组件
+    //组件的嵌套只能形成父子关系, 将代表子组件的标签，放入父组件的模板中
+    
+    
+    Vue.component('movie-item', {
+        template: '#movie-item'
+    })
+    Vue.component('movie-list', {
+        template: '#movie-list'
+    })
+    Vue.component('movie-block', {
+        template: '#movie-block'
+    })
+
+
+    new Vue({
+        el:"#app"
+    })
+   
+    
+    
+</script>
+</html>

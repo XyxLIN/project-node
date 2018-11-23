@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{message}}</h1>
+        <img v-bind:src="src" alt="">
+        <input v-bind:type = "type" data-id="1+2">
+    </div>
+    <script src="./base/vue.js"></script>
+    <script>
+        //需要将一条数据赋值到元素的属性上的时候，需要使用v-bind的指令
+       var vm = new Vue({
+           el:"#app",
+           data:{
+              message: 'Hello World',
+              type: 'submit',
+              src: 'http://www.ruanyifeng.com/blogimg/asset/2015/bg2015020110.png'
+           }
+       })
+       
+       
+    </script>
+</body>
+</html>

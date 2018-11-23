@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+    <div id="app">
+      <button @click = "get">get</button>
+    </div>
+
+
+    <script src="./base/vue.js"></script>
+    <script>
+
+      var vm = new Vue({
+        el:"#app",
+        api_vsersion: 'v1',
+        data: {
+          num: 1
+        },        
+        methods: {
+          get () {
+            this.$http.get('http://api.douban.com/api/'+this.$options.api_vsersion+'/theme').then(res => {
+              console.log(res)
+            })
+          }
+        }
+      })
+
+      //restful api
+      
+      
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>Number: {{num}}</h1>
+        <h1>Number: {{num.length}}</h1>
+        <p><input type="text" v-model="num"></p>
+        <!-- change -->
+        <p><input type="text" v-model.lazy="num"></p>
+
+        <p><input type="text" v-model.number="num" ></p>
+
+        <p><input type="text" v-model.trim="num" ></p>
+
+        <p><button @click="num++">++</button></p>
+        <p><button @click="get">getNum</button></p>
+    </div>
+    
+    <script src="./base/vue.js"></script>
+    <script>
+        // Vue实现MVVM的特点是 双向绑定 
+        
+        //v-model 可以让input的value和某一个数据进行完全的对应
+        //v-model实现的是一个功能: 双向数据绑定
+        //.lazy 就是把底层使用的input事件改成了change事件
+        //.number将输入的内容转换成number，转换不了的话就用原来的值
+        //trim去掉首尾空格
+        var vm = new Vue({
+            el:"#app",
+            data:{
+              num: 0
+            },
+            methods: {
+                get () {
+                    alert(this.num)
+                }
+            }
+        })
+
+
+      
+
+    </script>
+</body>
+</html>
+

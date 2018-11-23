@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .box{
+        width: 100px;height: 100px;
+        background: red;
+    }
+    .box:nth-of-type(2) {background: greenyellow;}
+    .box:last-of-type {background: skyblue;}
+
+
+</style>
+<body>
+    <button id="control">control</button>
+
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+</body>
+<script>
+   //回流(reflow)和重绘（repaint）
+   //指的是当我们修改数据或者直接操作dom，导致浏览器进行重新渲染时的两种情况，都会影响性能
+
+    let control = document.querySelector('#control');
+    let second_box = document.querySelectorAll('.box')[1];
+
+    control.onclick = function () {
+        //重绘，只去更改dom的颜色等等属性，不会影响文档流，会消耗性能
+        // second_box.style.background = 'pink'
+        //回流，只要影响文档流结构，消耗性能较高
+        // second_box.style.display = 'none'
+    }
+
+</script>
+</html>

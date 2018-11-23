@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <!-- vue 提供了mustache语法来渲染数据 -->
+        <span>a: {{ a }}</span>
+        {{ a }}
+
+        <button @click="increment">increment</button>
+    </div>
+
+   
+    <script src="./base/vue.js"></script>
+
+    <script>
+        // 得到Vue的实例
+        var vm = new Vue({
+            el: '#app', // 指定这个实例的作用范围
+            // 选项
+            data: {
+                a: 1 // 给vm实例挂载了a为1的数据
+            },
+            methods: {
+                increment () {
+                    this.a ++
+                }
+            }
+        })
+    
+    </script>
+   
+</body>
+</html>

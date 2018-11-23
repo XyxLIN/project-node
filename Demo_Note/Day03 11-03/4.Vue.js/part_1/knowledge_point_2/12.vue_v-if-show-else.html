@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+    <div id="app">
+        <p> <button @click="isShow = !isShow">toggle</button> </p>
+        <h1 v-if = "isShow">Hello Vue.js</h1>
+        <h1 v-else>Hello React.js</h1>
+
+        <hr>
+        <h1>{{random}}</h1>
+        <h1 v-if = "random>0.6">大于0.6</h1>
+        <h1 v-else-if = "random>0.3">大于0.3,小于等于0.6</h1>
+        <h1 v-else>小于等于0.3</h1>
+    </div>
+
+    <script src="./base/vue.js"></script>
+    <script>
+        // 条件渲染
+        // 1. 定义关键数据‘
+        // 2. 数据和视图建立联系 
+        // v-if 如果判断数据为false，因为数据变化影响dom 的重新render，不会renderdom
+        // v-show 纯粹的控制css样式
+
+        // v-if是真正的条件渲染，根据条件控制是否渲染， 有较高的切换开销，较低的初始渲染开销（如果初始是不渲染的话，省去了渲染的操作）
+        // v-show只是控制dom的css，dom会一直存在在document中， 有较高的初始渲染开销，较低的切换开销
+        // if和else必须紧挨着, v-show不能和v-else配合使用
+        new Vue({
+            el: '#app',
+            data: {
+                isShow: false,
+                random: Math.random()
+            }
+        })
+
+    </script>
+</body>
+</html>

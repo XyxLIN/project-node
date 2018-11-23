@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    [v-cloak] {
+        visibility: hidden;
+    }
+</style>
+<body>
+    <div id="app">
+        
+       <h1 v-cloak>Message: {{message}}</h1>
+      
+    </div>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+    <script>
+     
+        //当元素上加上v-cloak指令的时候，在vue没有加载的时候，这个指令就相当于p标签的一个标签属性，当vue加载完成后，会将这个指令去掉
+        //依靠这个属性可以实现防止{{}}闪烁
+
+        var vm = new Vue({
+            el:"#app",
+            data: {
+                message: 'Hello World'
+            }
+        })
+
+
+        //回流 和 重绘 reflow和repaint
+
+        //这个两个玩意儿都是在指当我们操作了页面中的dom结构之后发生的现象
+
+    
+
+
+      
+ 
+    </script>
+</body>
+</html>

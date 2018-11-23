@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<style>
+    .red {
+        border:1px solid red;
+    }
+    .blue {
+        border:1px solid blue;
+    }
+</style>
+<body>
+
+    <div id="app">
+
+        <!-- <app-input data-id="2" class="blue" v-model = "message"></app-input> -->
+        
+        <app-button @click = "message = 'haha'">哈哈</app-button>
+        
+        <h1>{{message}}</h1>
+        <input type="text" v-model="doc.title">
+        <h1>{{doc.title}}</h1>
+
+        <app-content v-bind:title.sync = "doc.title"></app-content>
+
+    </div>
+
+    <template id="app-input">
+        <div data-id = "1" class = "a">
+            <input @input = "$emit('input', $event.target.value)" :value = "value" type="text">
+        </div>
+    </template>   
+
+    <template id="app-content">
+        <div >
+            <h2>{{title}}</h2>
+            <button @click="$emit('title','123')">change</button>
+        </div>
+    </template> 
+    
+    <script src="./base/vue.js"></script>
+    <script>
+
+        Vue.component('app-input', {
+            inheritAttrs: false,
+            template: '#app-input',
+            props: ['value']
+        })
+
+        Vue.component('app-button', {
+            template: '<div style="padding:50px;"><button v-on = "abc"><slot></slot></button></div>',
+            computed: {
+                abc () {
+                    let that = this
+                    return Object.assign({},this.$listeners, {
+                        click () {
+                            that.$emit('click')
+                        }
+                    })
+                }
+            }
+        })
+
+        Vue.component('app-content', {
+            template: '#app-content',
+            props: ['title']
+        })
+
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello World',
+                doc: { title: 'hahahah' }
+            }
+        })
+    </script>
+
+</body>
+</html>

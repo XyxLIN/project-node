@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css">
+</head>
+<body>
+    <div id="app">
+        
+        <my-hello></my-hello>
+        
+    </div>
+    <template id="my-hello">
+        <h1>
+            <span>Hello</span>
+            <mark>World</mark>
+        </h1>
+    </template>
+    
+</body>
+<script src="./base/vue.js"></script>
+
+<script>
+
+    // new Vue的时候，根实例会将自己的模板进行编译（虚拟dom）
+    // 发现了my-hello组件，寻找这个组件
+    // 组件再去寻找自己的模板进行编译 -> 虚拟dom
+    // ......
+    // 渲染真实dom
+
+    // 所以，将模板编译成虚拟dom的过程会占用性能，其实我们可以将其优化掉
+
+    Vue.component("my-hello",{
+
+        // template: '#my-hello'
+        
+        
+        render (createElement) {// 返回一个虚拟dom结构
+            // return createElement('h1', { 'class': 'title' }, [
+            //     createElement('span', 'hello'),
+            //     createElement('mark', 'World')
+            // ])
+            // jsx是一种语法糖
+            return (
+                <h1>
+                    <span>Hello</span>
+                    <mark>World</mark>
+                </h1>
+            )
+        }
+
+    })
+
+
+
+    new Vue({
+        el:"#app"
+    })
+    
+
+    
+</script>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+          {{str}} <br> 
+          {{num}} <br> 
+          {{bool}} <br> 
+          {{und === undefined ? 'undefined':''}} <br> 
+          {{nun=== null ? 'null':''}} <br> 
+          {{obj}} <br> 
+          {{arr}} <br> 
+          {{fn}} <br> 
+    </div>
+    <script src="./base/vue.js"></script>
+    <script>
+        
+        //实例data里的数据类型可以是任意类型的
+      var vm = new Vue({
+          el:"#app",
+          data:{
+              str:'str',
+              num:123,
+              bool:true,
+              und:undefined,
+              nun:null,
+              obj:{x:1},
+              arr:[1,2,3],
+              fn:function(){alert(1)}
+          }
+      })
+    </script>
+</body>
+</html>

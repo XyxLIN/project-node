@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+    <div id="app">
+        <div v-html="info"></div>
+    </div>
+    <script src="./base/vue.js"></script>
+    <script>
+      
+      //v-htmlヘv-text唯一的区别就是可以解析标签，慎用，性能耗费比v-text高
+      //注意，可能会导致被xss攻击
+      var vm = new Vue({
+          el:"#app",
+          data: {
+            info: '<h1>this is a HTML string</h1>'
+          }
+      })
+
+      
+ 
+    </script>
+</body>
+</html>

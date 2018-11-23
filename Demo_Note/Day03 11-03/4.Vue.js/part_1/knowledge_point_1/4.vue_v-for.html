@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+   
+    <div id="app" >
+        <ul >  
+           <!-- <li v-for = "item in fruit" > {{ item }} </li>  -->
+           <!-- <li v-for = "(item, i) in fruit" > {{ item }} - {{ i + 1 }} </li>  -->
+           <li v-for = "num in 10"> {{num }}. 真好 </li> 
+        </ul>
+    </div>
+   
+    <!-- <script src=" https://cdn.bootcss.com/vue/1.0.28/vue.js"></script> -->
+    <script src="./base/vue.js"></script>
+    <script>
+       
+       //在vue中，提供了v-for工具来帮助我们去循环数据
+       //v-for其实是一个指令
+       //1. 带v-的都是指令 2. vue有很多指令
+       //3. 指令是用在视图中标签上的
+       //4. 指令的作用就是（根据数据）操作dom
+       
+       new Vue({
+           el: '#app',
+           data: {
+               fruit: [ 'apple', 'banana', 'orange' ]
+           }
+       })
+
+
+ 
+    </script>
+</body>
+</html>

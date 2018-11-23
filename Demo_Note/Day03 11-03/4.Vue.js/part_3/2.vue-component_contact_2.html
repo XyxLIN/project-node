@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css">
+</head>
+<body>
+    <div id="app">
+        <father></father>
+    </div>
+
+
+    <template id="father">
+        <div>
+            <p>父组件：</p>
+            <input type="number" v-model="money.value">
+            <p>money:{{money.value}}</p>
+            <hr>
+            <son :money="money" ></son>
+            
+        </div>
+    </template>
+
+
+    <template id="son">
+        <div>
+            <p>子组件：</p>
+            <input type="text" v-model="money.value">
+            <p>money:{{money.value}}</p>
+        </div>
+    </template>
+
+</body>
+<script src="./base/vue.js"></script>
+
+<script>
+
+    //有的时候，父组件可以将一个引用类型的数据传递给子组件，其实传递过去的是一个地址，当子组件去修改数据里的键值对、元素的时候，其实修改的还是父组件的数据
+    //
+    Vue.component("son",{
+        template:"#son",
+        props: ['money']
+    })
+
+    Vue.component("father",{
+        template:"#father",
+        data:function(){
+            return {
+               money: { value: 1000 }
+            }
+        }
+    })
+
+
+    
+    new Vue({
+        el:"#app"
+    })
+
+
+</script>
+</html>

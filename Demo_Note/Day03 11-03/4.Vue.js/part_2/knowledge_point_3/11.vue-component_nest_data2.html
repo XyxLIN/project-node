@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .box{
+        width: 100px;height: 100px;
+    }
+</style>
+<body>
+    <div id="app">
+        <app-father></app-father>
+    </div>
+   
+    <template id="father">
+        <div>  
+            <input type="color" v-model = "color">       
+            <app-son :son-color = "color"></app-son>
+        </div>
+    </template>
+
+    <template id="son">
+        <div>
+            <div :style = "{background: sonColor}" class="box"></div>
+        </div>
+    </template>
+
+</body>
+<script src="./base/vue.js"></script>
+
+<script>
+    //父组件可以通过v-bind来为子组件传递数据，当父组件的数据改变的时候，子组件接收到的数据也会改变
+    
+
+
+    Vue.component('app-father', {
+        template: '#father',
+        data () {
+            return {
+                color: 'red'
+            }
+        }
+    })
+    Vue.component('app-son', {
+        template: '#son',
+        props: ['sonColor']
+    })
+    new Vue({
+        el:"#app"
+    })
+    
+    
+
+</script>
+</html>

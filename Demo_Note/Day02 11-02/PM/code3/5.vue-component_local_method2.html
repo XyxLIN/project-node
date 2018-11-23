@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app1">
+      <app-hello></app-hello>
+    </div>
+    <div id="app2">
+        <app-hello></app-hello>
+    </div>
+</body>
+<script src="./base/vue.js"></script>
+
+<script>
+
+   //组件的模板最外层需要有一个节点，为了好编译
+    //局部注册，在Vue实例中或者其他组件中注册组件
+    let vm1 = new Vue({
+        el: '#app1',
+        components: {//键名为要使用的组件的名字，值为组件
+            'app-hello': Vue.extend({//这里可以直接写入某一个组件的配置项，自动的去进行Vue.extend的
+                template: '<div><h1>Hello World</h1><h1>Hello VueJS</h1></div>'
+            })
+        }
+    })
+
+    let vm2 = new Vue({ 
+        el: '#app2',
+        components: {//键名为要使用的组件的名字，值为组件
+            'app-hello':  {
+                template: '<div><h1>Hello World</h1><h1>Hello VueJS</h1></div>'
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+    <div id="app">
+        <p> <button @click = "get">get</button> </p>
+        <h1>国际巨星：{{ person.name | firstUpper }}</h1>
+        <p>{{person.name}}</p>
+
+        <hr>
+
+        <ul>
+          <li v-for="(item, index) in arr" :key = "index"> {{item}} </li>
+        </ul>
+        <hr>
+        {{ arr | sortarr(2) }}
+    </div>
+
+
+    <div id="app2">
+
+      <h1>{{ 'abc' | firstUpper }}</h1>
+
+    </div>
+   
+    <script src="./base/vue.js"></script>
+    <script>
+      // 需求: 在不更改数据的前提下，在显示的时候以另一种方式来显示 （过滤器  filter）
+      // vue中过滤器的作用：在不更改数据的前提下，在显示的时候以另一种方式来显示
+
+      // 过滤器根据定义方法分为全局过滤器和局部过滤器（在某实例中定义，也只能在这个实例中使用）
+
+      // 在view中利用管道符来使用过滤器
+      
+      // Vue.filter(name, handler) handler得到属性，返回处理后的结果
+
+      // 只能在 {{}} 和v-bind中使用  
+
+      // 不能操作源数据
+
+      // 参数的处理
+
+      // Vue.filter('firstUpper', (val) => {
+      //   // 应该先深拷贝出一个新的数据
+      //   if ( !val ) return val;
+      //   return  val.substr(0, 1).toUpperCase() + val.substr(1)
+      // })
+
+      Vue.filter('sortarr', (val, param) => {
+        let _new_val = val.slice()
+        // 应该先深拷贝出一个新的数据
+        _new_val.sort((a, b) => (a-b) * param)
+        return  _new_val
+      })
+
+
+       new Vue({
+         el: '#app',
+         data: {
+           person: {},
+           arr: [3, 1, 2, 5, 4]
+         },
+         methods: {
+           get () {
+             setTimeout(() => {
+                this.person = {
+                  name: 'michael'
+                }
+             }, 500);
+           }
+         },
+         filters: {
+           firstUpper: (val) => {
+              // 应该先深拷贝出一个新的数据
+              if ( !val ) return val;
+              return  val.substr(0, 1).toUpperCase() + val.substr(1)
+            }
+         }
+       })
+
+
+       new Vue({el: '#app2'})
+
+
+       // 作业： 来一个全局过滤器 currency  
+
+      //  126.7 -> ￥126.70
+      //  12345.678 -> ￥12,345.68  
+      //  参数： {{ price | currency('￥'|false) }}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    
+</style>
+<body>
+    <div id="app">
+       
+      <p :style = "{ fontSize: fs, color: 'red' }">今天是げ好日子</p>
+      <p :style = "[style1, style2]">今天是げ好日子</p>
+
+    </div>
+    <script src="./base/vue.js"></script>
+    <script>
+       var vm = new Vue({
+           el:"#app",
+           data:{
+                fs:'2em',
+                style1: { fontSize: '2em', color: 'red' },
+                style2: { background: 'green' }
+           },
+           methods:{
+              
+           }
+       })
+       
+       //v-bind的作用是绑定属性的 id，class，style，src...
+
+       //v-bind:src-> :src
+    </script>
+</body>
+</html>

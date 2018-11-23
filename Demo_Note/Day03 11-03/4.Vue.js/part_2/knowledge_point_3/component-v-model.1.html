@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+
+      
+        <input type="text" v-model="title">
+        <h1>{{title}}</h1>
+
+        <!-- <app-content @title="title = $event" v-bind:title = "title"></app-content> -->
+        <app-content v-bind:title.sync = "title"></app-content>
+
+    </div>
+
+  
+    <template id="app-content">
+        <div >
+            <h2>{{title}}</h2>
+            <input type="text" @input = "$emit('title', $event.target.value)">
+        </div>
+    </template> 
+    
+    <script src="./base/vue.js"></script>
+    <script>
+
+        Vue.component('app-content', {
+            template: '#app-content',
+            props: ['title']
+        })
+
+        new Vue({
+            el: '#app',
+            data: {title: 'hahahah' }
+        })
+    </script>
+
+</body>
+</html>

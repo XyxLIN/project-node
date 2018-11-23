@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./swiper.min.css">
+</head>
+<style>
+   body{
+       margin: 0;
+   }
+   
+</style>
+<body>
+
+    <div id="app">
+        <app-banner></app-banner>
+        <app-banner></app-banner>
+    </div>
+    
+    <template id="app-banner">
+        <div>
+            <div ref = "container" class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for = "billboard in billboards" :key = "billboard.id">
+                        <img width="100%" :src="billboard.image" alt="">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <input type="text" v-model = "title">
+        </div>
+    </template>
+
+
+    <script src="./swiper.min.js"></script>
+    <script src="./base/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue-resource/1.5.0/vue-resource.min.js"></script>
+    <script>   
+
+        
+
+        Vue.component('app-banner', {
+            template: '#app-banner',
+            data () {
+                return {
+                    billboards: [],
+                    title: ''
+                }
+            },
+            methods: {
+                getBillBoards () {
+                    this.$http.get('./banners.json').then(res => {
+                        this.billboards = res.body.bannerList
+                        // Vue.nextTick中的回调函数会在上一次数据更改所引起的dom rerender结束后执行
+                        Vue.nextTick(() => {
+                            new Swiper(this.$refs.container, {
+                                pagination:{
+                                    el: '.swiper-pagination'
+                                }
+                            })
+                        })
+                    })
+                }
+            },
+            created () {
+                this.getBillBoards()
+            },
+            mounted () {
+                // 在这里进行实例化： 因为此时数据还没有获得，所以页面中还没有dom，初始化有问题
+                // new Swiper('.swiper-container', {
+                //     pagination:{
+                //         el: '.swiper-pagination'
+                //     }
+                // })
+            },
+            beforeUpdate () {
+                // 在这里进行实例化： 因为此时数据刚刚更改，页面中dom还没有重新渲染，初始化有问题
+                // new Swiper('.swiper-container', {
+                //     pagination:{
+                //         el: '.swiper-pagination'
+                //     }
+                // })
+            },
+            updated () {
+                // 在这里实例化已经生效了，但是注意：任意数据变化都会引起updated执行，就会导致swiper被多次实例化
+                // new Swiper('.swiper-container', {
+                //     pagination:{
+                //         el: '.swiper-pagination'
+                //     }
+                // })
+            },
+            watch: {
+                billboards () {
+                    // 数据一变化就执行了，dom还没有重新渲染
+                    // setTimeout(() => {
+                    //     new Swiper('.swiper-container', {
+                    //         pagination:{
+                    //             el: '.swiper-pagination'
+                    //         }
+                    //     })
+                    // }, 0);
+                }
+            }
+        })
+       
+
+        new Vue({
+            el: '#app'
+        })
+           
+
+    </script>
+</body>
+</html>

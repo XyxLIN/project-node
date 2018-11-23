@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+
+    <div id="app">
+      <p><button @click="cry">cry</button></p>
+      <p><button @click="laugh">laugh</button></p>
+    </div>
+    <hr>
+    <div id="app2">
+        <p><button @click="cry">cry</button></p>
+        <p><button @click="laugh">laugh</button></p>
+        <p><button @click="eat">eat</button></p>
+    </div>
+  
+    <script src="./base/vue.js"></script>
+    <script>
+      
+      //在Vue中可以将一些通用的代码抽离到一个对象中，
+      //然后就可以利用mixins配置将这些抽离出去的mixin再次引入到实例里
+      
+      // 对于一级配置会合并在一起，函数的语句也会合并在一起，往里面的配置会保留实例自身的配置
+      var action_mixin = {
+        methods: {
+          cry () {
+            console.log('呜呜呜呜呜呜呜呜.....')
+          },
+          laugh () {
+            console.log('哈哈哈哈哈哈哈.....')
+          }
+        },
+        mounted () { // 初始化的时候会执行
+          console.log('初始化啦。。。')
+        }
+      }
+      
+      new Vue({
+        el: '#app',
+        mixins: [action_mixin]
+      })
+
+      new Vue({
+        el: '#app2',
+        mixins: [action_mixin],
+        methods: {
+          laugh () {
+            console.log('呵呵呵呵呵.....')
+          },
+          eat () {
+            console.log('啊呜啊呜啊呜啊呜....')
+          }
+        },
+        mounted () {
+          console.log('真好')
+        }
+      })
+      
+
+
+
+    </script>
+</body>
+</html>

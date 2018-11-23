@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <template v-for = "(phone, i) in phones" :key = "i">
+            <div> 这个手机真真棒 </div>
+            <ul>
+                <li > name : {{phone.name}} </li>
+                <li > price : {{phone.price}} </li>
+            </ul>
+        </template>    
+    </div>
+    <script src="./base/vue.js"></script>
+    <script>
+        // vue提供了template标签供我们使用，在渲染视图的时候其实不会渲染template
+        // 记住，body中写的假的！！！！！！
+        // 当我们在#app中编写实例的结构之后，其实vue会将这些东西重新编译之后进行重新的渲染
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                phones: [
+                    { name: 'iphoneX', price: 8000 },
+                    { name: '小米8', price: 4000 },
+                    { name: '华为V10', price: 5000 },
+                    { name: 'oppo R11', price: 3000 }
+                ]
+            }
+        })
+
+      
+ 
+    </script>
+</body>
+</html>

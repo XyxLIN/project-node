@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css">
+</head>
+<body>
+    <div id="app">
+       <king></king>
+    </div>
+
+
+    <template id="king">
+        <div>
+          <p>我是国王~~</p>
+          <p>国库：{{money}}</p>
+          <p>下面是我的子民们..</p>
+          <hr>
+          <pi :contribute = "getMoney"></pi>
+        </div>
+    </template>
+
+
+    <template id="pi">
+        <div>
+           <p>我是伟大国王的子民</p>
+            <p> 钱钱： {{money}} <button @click = "money++">赚钱</button> </p>
+            <p> 为国家做贡献 <button @click = "give" >进贡</button> </p>
+        </div>
+    </template>
+
+</body>
+<script src="./base/vue.js"></script>
+
+<script>
+    //屁民
+    Vue.component('pi',{
+        template: '#pi',
+        props: ['contribute'],
+        data () {
+            return {
+                money: 0
+            }
+        },
+        methods: {
+            give () {
+               let tax = 0.5
+               this.contribute(this.money*tax)
+               this.money*=(1-tax)
+            }
+        }
+    })
+    //国王
+    Vue.component('king',{
+      template: '#king',
+      data () {
+          return {
+              money: 0
+          }
+      },
+      methods: {
+          getMoney ( money ) {
+              this.money += money
+          }
+      }
+    })
+
+    new Vue({
+        el:"#app"
+    })
+
+
+</script>
+</html>

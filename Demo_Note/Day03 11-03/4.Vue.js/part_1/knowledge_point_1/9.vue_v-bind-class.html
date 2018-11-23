@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<style>
+    .p {
+        font-style: italic;
+    }
+    .red{background: red;}
+    .blue{background: blue;}
+    .yellow{background: yellow;}
+
+    .big{
+        font-size: 10em;
+    }
+    .small{
+        font-size: 0.5em;
+    }
+</style>
+<body>
+    <div id="app">
+        
+        <!-- <h1 :class = "{ big: isBig, small: !isBig }" class="p">哈哈哈哈哈哈哈</h1> -->
+        <!-- <h1 :class = "style" class="p">哈哈哈哈哈哈哈</h1> -->
+        <!-- <button @click="isBig = !isBig">toggle</button> -->
+        <!-- <hr> -->
+        
+        <!-- <h1 :class = "[color, isBig ? 'big': 'small']" class="p">哈哈哈哈哈哈哈</h1> -->
+
+
+        <h1 :class="btns" class="p">哈哈哈哈哈哈哈</h1>
+
+
+        
+
+    </div>
+    <script src="./base/vue.js"></script>
+    <script>
+        //声明式渲染||数据驱动
+
+        // 视图中所有的显示变化的情况，都应该有一条数据来与之对应
+        //给某一个按钮加上red类名
+        // 1. 定义关键数据
+        // 2. 让数据与视图建立联系
+        // 3. 在适当的情况下去更改数据
+
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                isBig:false,
+                color:'red',
+                style: { big: false, small: false, red:true  },
+                btns: ['red', 'banana', 'orange'],
+
+            }
+        })
+
+        
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    ul{
+        padding: 20px;background: rgba(123,31,32,0.5)
+    }
+    li {
+        background: red;
+    }
+</style>
+<body>
+    
+    <div id="app">   
+        <h1>Number: {{ num }}</h1> 
+        <button v-on:click = "handleAlert(1, $event)">click</button>
+        <button v-on:click = "num ++">click</button>
+        <button v-on:dblclick = "handleDoubleClick">click</button>
+
+        <ul @click.self = "handleUlClick">
+            ul
+            <li @click.once = "handleLiClick">li</li>
+        </ul>
+
+
+        <form @submit.prevent = "handleSubmit">
+            <input @keyup.haha = "handleKeyUp" type="text">
+            <button>submit</button>
+        </form>
+        
+    </div>
+
+    
+
+    <script src="./base/vue.js"></script>
+    <script>
+        //实例中的方法要写入到methods中
+        // v-on:事件名 = "要处理的程序" v-on：可以缩写成@
+        // 在指令的值中可以直接调用某个methods方法，也可以写一些简单的表达式
+        // 在methods的方法中想要更改数据，就直接从this中操作就可以了例如：this.num++
+        // methods方法中会自动接收事件对象, 但是当我们传参的时候，如果需要事件对象的话，得手动的传入$event来表示事件对象
+        
+        Vue.config.keyCodes.haha = 38
+
+
+        Vue.config.productionTip = false
+        // Vue.config.keyCodes.f7 = 118
+
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                num: 0
+            },
+            methods: {
+                handleAlert (num, e) {
+                    console.log(num, e)
+                },
+                handleDoubleClick () {
+                    console.log('haha')
+                    // this.$data.num ++
+                    // this._data.num ++
+                    this.num ++
+                  
+                },
+                handleUlClick () { alert('ul') },
+                handleLiClick () { alert('li') },
+                handleSubmit () {
+                    console.log('form-submit')
+                },
+                handleKeyUp () {
+                    console.log('ok')
+                }
+
+            }
+        })
+
+        console.log(vm)
+
+ 
+    </script>
+</body>
+</html>

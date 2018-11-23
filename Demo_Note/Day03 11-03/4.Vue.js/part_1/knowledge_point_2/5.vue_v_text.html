@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+    <div id="app">
+       
+     <h1>Message: <span v-text="msg"></span></h1>
+     <h1 v-pre> vue.js中表达式的写法为：{{ data }} </h1>
+     
+    </div>
+    <script src="./base/vue.js"></script>
+    <script>
+       
+      var vm = new Vue({
+          el:"#app",
+          data:{
+            msg:'hello world'
+          }
+      })
+      
+
+      
+ 
+    </script>
+</body>
+</html>
